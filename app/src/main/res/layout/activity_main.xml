@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:paddingLeft="@dimen/margin_horizontal"
+    android:paddingTop="@dimen/margin_vertical"
+    android:paddingRight="@dimen/margin_horizontal"
+    android:paddingBottom="@dimen/margin_vertical"
+    tools:context=".MainActivity">
+
+    <TextView
+        android:id="@+id/tituloTextView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:text="@string/reglas_juejo"
+        android:textAppearance="@style/TextAppearance.AppCompat.Display1"
+        tools:text="@string/reglas_juejo" />
+
+    <TextView
+        android:id="@+id/reglasTextView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/reglas" />
+</LinearLayout>
