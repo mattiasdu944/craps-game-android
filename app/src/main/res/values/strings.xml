@@ -1,5 +1,11 @@
 <resources>
     <string name="app_name">Craps</string>
     <string name="reglas_juejo">Reglas del juego</string>
-    <string name="reglas">El juego consiste en lanzar dos dados de 6 caras. Si en el primer lanzamiento el jugador obtiene 7 u 11, el jugador gana; si se obtiene 2, 3 o 12 ek jugador pierde; cualquier otro valor se vuelve en punt. En los lanzamientos sucesivos el jugador debe obtener de nuevo el punto para ganar, pero pierde si obtiene 7.</string>
+    <string name="reglas">El juego consiste en lanzar dos dados de 6 caras. Si en el primer lanzamiento el jugador obtiene 7 u 11, el jugador gana, si se obtiene 2, 3 o 12 el jugador pierde; cualquier otro valor se vuelve en punt. En los lanzamientos sucesivos el jugador debe obtener de nuevo el punto para ganar, pero pierde si obtiene 7.</string>
+    <string name="boton_jugar">Jugar</string>
+    <string name="puntaje">Puntaje: %d</string>
+    <string name="resultado">El jugador lanzo: %d + %d = %d</string>
+    <string name="boton_lazar">¡Lazar los dados!</string>
+    <string name="description_dado1">Imagen del primer dado lanzado</string>
+    <string name="description_dado2">Imagen del segundo dado</string>
 </resources>

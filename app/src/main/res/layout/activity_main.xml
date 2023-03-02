@@ -15,6 +15,7 @@
         android:id="@+id/tituloTextView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:fontFamily="@font/poppins_bold"
         android:gravity="center_horizontal"
         android:text="@string/reglas_juejo"
         android:textAppearance="@style/TextAppearance.AppCompat.Display1"
@@ -24,5 +25,15 @@
         android:id="@+id/reglasTextView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/reglas" />
+        android:layout_weight="1"
+        android:fontFamily="@font/poppins_regular"
+        android:text="@string/reglas"
+        android:textAlignment="center"
+        android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
+
+    <Button
+        android:id="@+id/jugarButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/boton_jugar" />
 </LinearLayout>
