@@ -3,9 +3,15 @@ package org.mattiasduarte.example.craps;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.hardware.Sensor;
+import android.hardware.SensorEvent;
+import android.hardware.SensorEventListener;
+import android.hardware.SensorManager;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -34,6 +40,7 @@ public class CrapsActivity extends AppCompatActivity {
     private final int SIETE = 7;
     private final int ONCE = 11;
     private final int DOCE = 12;
+    private final int UMBRAL_ACELERACION = 10000;
 
 
     private TextView puntajeTextView;
@@ -46,6 +53,18 @@ public class CrapsActivity extends AppCompatActivity {
     private int dado2;
     private int puntaje;
     private State state;
+
+
+    private SensorManager adminSensor;
+    private float aceleracion;
+    private float aceleracionActaul;
+    private float aceleracionAnterior;
+
+    private Animation animateDado1;
+    private Animation animateDado2;
+
+    private boolean gameOver = false;
+
 
 
     @Override
@@ -62,6 +81,21 @@ public class CrapsActivity extends AppCompatActivity {
         lanzarButton.setOnClickListener(listenLanzarDado);
 
         state = State.INITIAL;
+
+        adminSensor =  (SensorManager) getSystemService(SENSOR_SERVICE);
+        // Registra el evento para el acelerador
+        adminSensor.registerListener(listenAcelerometro, adminSensor.getDefaultSensor(Sensor.TYPE_ACCELEROMETER), SensorManager.SENSOR_DELAY_NORMAL);
+
+
+
+        aceleracion = 0.0f;
+        aceleracionActaul = SensorManager.GRAVITY_EARTH;
+        aceleracionAnterior = SensorManager.GRAVITY_EARTH;
+
+
+        animateDado1 = AnimationUtils.loadAnimation(this, R.anim.animate_dado1);
+        animateDado2 = AnimationUtils.loadAnimation(this, R.anim.animate_dado2);
+        animateDado1.setAnimationListener(listenAnimation);
     }
 
 
@@ -69,15 +103,12 @@ public class CrapsActivity extends AppCompatActivity {
         @Override
         public void onClick(View v) {
             //Genrerar valores aleatorios
+            animarDados();
+
             int suma = lanzarDados();
             handleState(suma);
-
-            //Actualizar interfaz
             actualizarUI();
-
-
             terminarJuego();
-
         }
     };
 
@@ -86,7 +117,7 @@ public class CrapsActivity extends AppCompatActivity {
     private int lanzarDados(){
         dado1 = rng.nextInt(6) + 1;
         dado2 = rng.nextInt(6) + 1;
-        return dado1 + dado1;
+        return dado1 + dado2;
     };
 
     private void actualizarUI(){
@@ -172,7 +203,8 @@ public class CrapsActivity extends AppCompatActivity {
     };
 
     private void terminarJuego(){
-        if(  state == State.VICTORY || state == State.OVER ){
+        if(  !gameOver &&  (state == State.VICTORY || state == State.OVER) ){
+            gameOver = true;
             lanzarButton.setEnabled(false);
 
             Intent i = new Intent(CrapsActivity.this, ResultadoActivity.class);
@@ -194,4 +226,57 @@ public class CrapsActivity extends AppCompatActivity {
             handle.postDelayed( hilo,1500);
         }
     }
+
+    private final SensorEventListener listenAcelerometro = new SensorEventListener() {
+        @Override
+        public void onSensorChanged(SensorEvent event) {
+            float x = event.values[0];
+            float y = event.values[1];
+            float z = event.values[2];
+
+            aceleracionAnterior = aceleracionActaul;
+
+            aceleracionActaul = x * x + y * y + z * z;
+
+            aceleracion = aceleracionActaul * ( aceleracionActaul - aceleracionAnterior );
+
+            if( aceleracion > UMBRAL_ACELERACION ){
+                animarDados();
+            }
+
+        }
+
+        @Override
+        public void onAccuracyChanged(Sensor sensor, int accuracy) {
+
+        }
+    };
+
+    private final Animation.AnimationListener listenAnimation = new Animation.AnimationListener() {
+        @Override
+        public void onAnimationStart(Animation animation) {
+            resultadoTextView.setText("");
+            lanzarButton.setEnabled(false);
+            adminSensor.unregisterListener(listenAcelerometro,
+                    adminSensor.getDefaultSensor(Sensor.TYPE_ACCELEROMETER));
+        }
+
+        @Override
+        public void onAnimationEnd(Animation animation) {
+            lanzarButton.setEnabled(true);
+            adminSensor.registerListener(listenAcelerometro,
+                    adminSensor.getDefaultSensor(Sensor.TYPE_ACCELEROMETER), SensorManager.SENSOR_DELAY_NORMAL);
+        }
+
+        @Override
+        public void onAnimationRepeat(Animation animation) {
+
+        }
+    };
+
+    private void animarDados(){
+        dado1ImageView.startAnimation(animateDado1);
+        dado2ImageView.startAnimation(animateDado2);
+    }
 }
+

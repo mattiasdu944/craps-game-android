@@ -4,14 +4,18 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:paddingLeft="@dimen/margin_horizontal"
+    android:paddingTop="@dimen/margin_vertical"
+    android:paddingRight="@dimen/margin_horizontal"
+    android:paddingBottom="@dimen/margin_vertical"
     tools:context=".ResultadoActivity">
 
 
     <com.airbnb.lottie.LottieAnimationView
-        android:id="@+id/animationView"
+        android:id="@+id/animationLottieView"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:lottie_url="REPLACE_JSON_URL"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
         app:lottie_autoPlay="true"
-        app:lottie_loop="true"/>
+        app:lottie_loop="true" />
 </LinearLayout>
