@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     android:paddingLeft="@dimen/margin_horizontal"
     android:paddingTop="@dimen/margin_vertical"
     android:paddingRight="@dimen/margin_horizontal"
@@ -11,11 +12,29 @@
     tools:context=".ResultadoActivity">
 
 
+    <TextView
+        android:id="@+id/animationTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:fontFamily="@font/poppins_semibold"
+        android:textAlignment="center"
+        android:textAppearance="@style/TextAppearance.AppCompat.Display1" />
+
     <com.airbnb.lottie.LottieAnimationView
         android:id="@+id/animationLottieView"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_weight="1"
+        android:layout_height="wrap_content"
         app:lottie_autoPlay="true"
         app:lottie_loop="true" />
+
+    <TextView
+        android:id="@+id/puntoResultadoTextView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/poppins_regular"
+        android:text="@string/punto"
+        android:textAlignment="center"
+        android:textAppearance="@style/TextAppearance.AppCompat.Display1" />
+
 </LinearLayout>

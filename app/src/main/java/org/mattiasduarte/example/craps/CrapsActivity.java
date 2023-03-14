@@ -26,6 +26,7 @@ public class CrapsActivity extends AppCompatActivity {
     public static final String DADO1= "org.mattiasduarte.example.craps.DADO1";
     public static final String DADO2= "org.mattiasduarte.example.craps.DADO2";
     public static final String PUNTO= "org.mattiasduarte.example.craps.PUNTO";
+    public static final String RESULTADO = "org.mattiasduarte.example.craps.RESULTADO";
 
     // States in this game
     private enum State{
@@ -263,9 +264,20 @@ public class CrapsActivity extends AppCompatActivity {
 
         @Override
         public void onAnimationEnd(Animation animation) {
-            lanzarButton.setEnabled(true);
-            adminSensor.registerListener(listenAcelerometro,
-                    adminSensor.getDefaultSensor(Sensor.TYPE_ACCELEROMETER), SensorManager.SENSOR_DELAY_NORMAL);
+
+            int suma = lanzarDados();
+
+            handleState(suma);
+
+            actualizarUI();
+
+            terminarJuego();
+
+            if (!gameOver) {
+                lanzarButton.setEnabled(true);
+                adminSensor.registerListener(listenAcelerometro,
+                        adminSensor.getDefaultSensor(Sensor.TYPE_ACCELEROMETER), SensorManager.SENSOR_DELAY_NORMAL);
+            }
         }
 
         @Override

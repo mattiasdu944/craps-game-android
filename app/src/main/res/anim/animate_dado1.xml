@@ -24,6 +24,5 @@
         android:fromXDelta="-50%"
         android:toXDelta="0dp"
         android:duration="200"
-        android:startOffse
-        t="600"/>
+        android:startOffset="600"/>
 </set>

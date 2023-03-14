@@ -8,4 +8,5 @@
     <string name="boton_lazar">¡Lazar los dados!</string>
     <string name="description_dado1">Imagen del primer dado lanzado</string>
     <string name="description_dado2">Imagen del segundo dado</string>
+    <string name="punto">El pundo era %d y obtuvo %d</string>
 </resources>
