@@ -26,7 +26,6 @@ public class CrapsActivity extends AppCompatActivity {
     public static final String DADO1= "org.mattiasduarte.example.craps.DADO1";
     public static final String DADO2= "org.mattiasduarte.example.craps.DADO2";
     public static final String PUNTO= "org.mattiasduarte.example.craps.PUNTO";
-    public static final String RESULTADO = "org.mattiasduarte.example.craps.RESULTADO";
 
     // States in this game
     private enum State{
@@ -103,13 +102,7 @@ public class CrapsActivity extends AppCompatActivity {
     private final View.OnClickListener listenLanzarDado = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            //Genrerar valores aleatorios
             animarDados();
-
-            int suma = lanzarDados();
-            handleState(suma);
-            actualizarUI();
-            terminarJuego();
         }
     };
 
